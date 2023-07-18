@@ -45,14 +45,30 @@ def to_doc(prompt, name, port1, port2, port3, n=1):
     }).matches[0]
     mask_out.save_uri_to_file(f'{folder}/{name}-mask.png')
 
-ports = sys.argv[1:4]
-spices = [
-    'red pepper flakes',
-    'ground ginger'
+def yield_prompts(spices):
+    for spice in spices:
+        yield f'Photograph of paper label of the name-brand {spice} spice jar in the pantry'
+
+PORTS = sys.argv[1:4]
+SEASONINGS = [
+'baharat seasoning', 'chili powde', 'chinese five-spice powder',
+'curry powder', 'dukkah', 'garam masala', 'herbes de provence',
+'mojo seasoning', 'old bay seasoning', 'pickling spice',
+'pumpkin pie spice', 'ras el hanout', 'za\'atar seasoning'
 ]
-PROMPTS = [
-    f'Photograph of paper label of the name-brand {spices[0]} spice jar in the pantry',
-    f'Photograph of paper label of the name-brand {spices[1]} spice jar in the pantry',
+SPICES = SEASONINGS + [
+'allspice', 'ancho powder', 'annatto seeds', 'black pepper',
+'cardamom', 'carom seeds', 'cayenne pepper', 'celery seeds',
+'chervil', 'chia seeds', 'chipotle powder', 'cinnamon',
+'coriander', 'cumin', 'fenugreek', 'flax seeds', 'garlic powder',
+'ginger', 'gochugaru', 'grains of paradise', 'ground cloves',
+'kosher salt', 'loomi', 'mace', 'mahlab', 'mustard powder',
+'nutmeg', 'paprika', 'pickling salt', 'saffron', 'sea salt',
+'smoked paprika', 'star anise', 'sumac', 'turmeric'
 ]
-for (i, p) in enumerate(PROMPTS):
-    to_doc(p, f'test-{i}', ports[0], ports[1], ports[2], n=2)
+RUN = '1'
+
+for (p, s) in zip(yield_prompts(SPICES), SPICES):
+    key = s.replace(' ', '-')
+    print('Rendering', key)
+    to_doc(p, f'run-{RUN}-spice-{key}', PORTS[0], PORTS[1], PORTS[2], n=4)
