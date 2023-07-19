@@ -1,4 +1,5 @@
 import os
+import re
 import cv2
 import sys
 import numpy as np
@@ -21,8 +22,7 @@ That is, from the jina log when running
     python3 -m jina flow --uses flow.tmp.yml
 '''
 
-def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_port, n=1, c=2):
-    n_compare = int(np.ceil(n/4))
+def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_port, check=1, n=1, c=2):
     dalle_url = f'grpc://127.0.0.1:{dal_port}'
     dif_url = f'grpc://127.0.0.1:{dif_port}'
     scale_url = f'grpc://127.0.0.1:{scal_port}'
@@ -30,13 +30,13 @@ def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_por
 
     # Create output directory
     Path(folder).mkdir(parents=True, exist_ok=True)
-    print(f'Will check {n_compare} of {n} variants')
+    print(f'Will check {check} of {n} variants')
 
     # Generate the original n images
     doc = Document(text=prompt).post(
         dalle_url, parameters={'num_images': n}
     )
-    subset = doc.matches[:n_compare]
+    subset = doc.matches[:check]
 
     # Consider a subset of images
     mask_file_temp = f'{folder}/{name}-mask-temp.png'
@@ -85,10 +85,11 @@ def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_por
         out_image_doc = match
         out_max_area = max_area
         out_mask_matrix = mask_matrix
-        try:
-            os.remove(mask_file_temp)
-        except:
-            pass
+
+    try:
+        os.remove(mask_file_temp)
+    except:
+        pass
 
     print(f'Max mask area: {out_max_area}')
 
@@ -107,6 +108,10 @@ def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_por
 
 # Select contour with largest area
 def max_contour_area(contours):
+
+    # No contours in sample
+    if len(contours) == 0:
+        return 0
 
     # create an empty list
     cnt_area = []
@@ -148,18 +153,20 @@ SPICES = SEASONINGS + [
 ]
 SPICES.sort()
 C = 5
-TRIES = 16
-VERSION = '3'
-FOLDER = f'spices-v-{VERSION}-tries-{TRIES}'
+TRIES = 64
+VERSION = '3-2-0'
+CHECK = min(TRIES, 7)
 PREFIX = 'small square paper label'
 SEARCH = 'small square paper label'
+FOLDER = f'spices-v-{VERSION}-check-{CHECK}-of-{TRIES}'
 
 print(f'Rendering {FOLDER}')
 for (prompts, spice) in zip(yield_prompts(PREFIX, SPICES), SPICES):
-    key = spice.replace(' ', '-')
+    key = re.sub(r'[^a-z0-9]', '-', spice)
     print(f'Rendering {key}')
     for (i, prompt) in enumerate(prompts):
         to_doc(
             prompt, SEARCH, FOLDER, f'v-{VERSION}-prompt-{i}-spice-{key}',
-            PORTS[0], PORTS[1], PORTS[2], PORTS[3], n=TRIES, c=C
+            PORTS[0], PORTS[1], PORTS[2], PORTS[3],
+            check=CHECK, n=TRIES, c=C
         )
