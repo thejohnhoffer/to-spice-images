@@ -1,4 +1,6 @@
-## Dallee
+# To Spice Images
+
+## Dallee Server
 
 Launch `1x A10 (24 GB PCIe)` instance [with Lambda Labs](https://cloud.lambdalabs.com/instances), then ssh and run:
 
@@ -56,3 +58,25 @@ python3 flow_parser.py --enable-stable-diffusion --enable-clipseg
 python3 -m jina flow --uses flow.tmp.yml
 
 ```
+
+## Dallee Client
+
+In a separate shell on the same instance, run:
+
+```
+python client.py DALLE_PORT DIFFUSION_PORT UPSCALE_PORT SEGMENT_PORT
+```
+
+where DALLE_PORT, DIFFUSION_PORT, UPSCALE_PORT, SEGMENT_PORT are from the jina log:
+
+```
+    INFO   dalle/rep-0@180585 start server bound to 0.0.0.0:56768
+    ...
+    INFO   diffusion/rep-0@305004 start server bound to 0.0.0.0:55470
+    ...
+    INFO   upscaler/rep-0@178370 start server bound to 0.0.0.0:62240
+    ...
+    INFO   clipseg/rep-0@180633 start server bound to 0.0.0.0:57042
+```
+
+That is, you must manually find the ports searching through the server logs from the previous shell.
