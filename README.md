@@ -110,4 +110,17 @@ After running `merge_results.py`, you can sync up with the remote `S3` bucket
 aws s3 sync merged s3://dgmd-s17-assets/train/generated-text-images/
 ```
 
-Note, you must have access with `aws configure`
+Note, you must have access with `aws configure`. You will also recieve a `merged.json` file, which you can use for the next step
+
+
+## Visualize
+
+```
+pyenv install 3.9.17
+pyenv local 3.9.17
+python3 -m pip install jupyterlab
+python3 -m pip install opencv-python
+python3 -m jupyterlab
+```
+
+Note, you may follow [these steps](https://albertauyeung.github.io/2020/08/17/pyenv-jupyter.html/) to enable `pyenv` within `jupyterlab`.
