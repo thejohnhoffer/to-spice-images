@@ -91,8 +91,6 @@ def to_doc(prompt, search, folder, name, dal_port, dif_port, scal_port, clip_por
     except:
         pass
 
-    print(f'Max mask area: {out_max_area}')
-
     # Upscale and save output image
     out_image_doc = out_image_doc.post(f'{scale_url}/upscale')
     out_image_doc.load_uri_to_image_tensor(1024, 1024)
@@ -138,29 +136,31 @@ PORTS = sys.argv[1:5]
 SEASONINGS = [
 'baharat seasoning', 'chili powder', 'chinese five-spice powder',
 'curry powder', 'dukkah', 'garam masala', 'herbes de provence',
-'mojo seasoning', 'old bay seasoning', 'pickling spice',
-'pumpkin pie spice', 'ras el hanout', 'za\'atar seasoning'
+'italian seasoning', 'lemon pepper', 'mojo seasoning', 'old bay seasoning', 'pickling spice',
+'pumpkin pie spice', 'rainbow sprinkles', 'ras el hanout', 'za\'atar seasoning',
 ]
 SPICES = SEASONINGS + [
-'allspice', 'ancho powder', 'annatto seeds', 'black pepper',
-'cardamom', 'carom seeds', 'cayenne pepper', 'celery seeds',
-'chervil', 'chia seeds', 'chipotle powder', 'cinnamon',
-'coriander', 'cumin', 'fenugreek', 'flax seeds', 'garlic powder',
-'ginger', 'gochugaru', 'grains of paradise', 'ground cloves',
-'kosher salt', 'loomi', 'mace', 'mahlab', 'mustard powder',
-'nutmeg', 'paprika', 'pickling salt', 'saffron', 'sea salt',
-'smoked paprika', 'star anise', 'sumac', 'turmeric'
+'allspice', 'ancho powder', 'annatto seeds', 'basil', 'bay leaves', 'black pepper',
+'cardamom', 'carom seeds', 'caraway seeds', 'cayenne pepper', 'celery seeds',
+'chervil', 'chia seeds', 'chives', 'chipotle powder', 'cinnamon',
+'coriander', 'cream of tartar', 'cumin', 'dill', 'fennel seeds', 'fenugreek', 'flax seeds',
+'garlic powder', 'ginger', 'gochugaru', 'grains of paradise', 'ground cloves',
+'kosher salt', 'loomi', 'mace', 'mahlab', 'mango powder', 'marjoram', 'mint', 'mustard powder',
+'nutmeg', 'onion powder', 'oregano', 'paprika', 'parsley', 'pickling salt', 'poppy seeds',
+'red pepper flakes', 'rosemary', 'sage', 'saffron', 'sea salt', 'sesame seeds', 'sichuan pepper',
+'smoked paprika', 'star anise', 'sumac', 'thyme', 'turmeric', 'white pepper'
 ]
 SPICES.sort()
 C = 5
-TRIES = 64
-VERSION = '3-2-0'
-CHECK = min(TRIES, 7)
+TRIES = 12
+VERSION = '3-3-0'
+CHECK = min(TRIES, 10)
 PREFIX = 'small square paper label'
 SEARCH = 'small square paper label'
 FOLDER = f'spices-v-{VERSION}-check-{CHECK}-of-{TRIES}'
 
 print(f'Rendering {FOLDER}')
+print(f'{len(SPICES)} spices')
 for (prompts, spice) in zip(yield_prompts(PREFIX, SPICES), SPICES):
     key = re.sub(r'[^a-z0-9]', '-', spice)
     print(f'Rendering {key}')
