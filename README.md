@@ -120,7 +120,7 @@ Using [conda](https://docs.anaconda.com/anaconda/install/windows/) is easier!
 ```
 conda create -n visualize python=3.9
 conda activate visualize
-pip install matplotlib numpy
+pip install matplotlib numpy openai
 pip install jupyterlab opencv-python
 pip install git+https://github.com/JaidedAI/EasyOCR.git@f947eaa36a55adb306feac58966378e01cc67f85
 python3 -m pip install --force-reinstall -v "Pillow==9.5.0"
@@ -135,10 +135,17 @@ pyenv install 3.9.17
 pyenv local 3.9.17
 python3 -m pip install jupyterlab numpy
 python3 -m pip install opencv-python
-python3 -m pip install matplotlib
+python3 -m pip install matplotlib openai
 python3 -m pip install git+https://github.com/JaidedAI/EasyOCR.git@f947eaa36a55adb306feac58966378e01cc67f85
 python3 -m pip install --force-reinstall -v "Pillow==9.5.0"
 python3 -m jupyterlab
 ```
+
+### Running the full notebook
+
+To run the notebook to completion, you'll need:
+
+- a local copy of `merged.json`, with an index to the `s3` demo images
+- an openai API key, [available when logged in here](https://platform.openai.com/account/api-keys)
 
 Note, you may follow [these steps](https://albertauyeung.github.io/2020/08/17/pyenv-jupyter.html/) to enable `pyenv` within `jupyterlab`. Note, the git install of EasyOCR is needed until the resolution of [this EasyOCR Issue](https://github.com/JaidedAI/EasyOCR/issues/1077)
