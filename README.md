@@ -115,6 +115,18 @@ Note, you must have access with `aws configure`. You will also recieve a `merged
 
 ## Visualize
 
+Using [conda](https://docs.anaconda.com/anaconda/install/windows/) is easier!
+
+```
+conda create -n visualize python=3.9
+conda activate visualize
+pip install jupyterlab opencv-python
+conda install nb_conda_kernels
+python3 -m jupyterlab
+```
+
+Here are the `pyenv` instructions:
+
 ```
 pyenv install 3.9.17
 pyenv local 3.9.17
