@@ -79,4 +79,35 @@ where DALLE_PORT, DIFFUSION_PORT, UPSCALE_PORT, SEGMENT_PORT are from the jina l
     INFO   clipseg/rep-0@180633 start server bound to 0.0.0.0:57042
 ```
 
-That is, you must manually find the ports searching through the server logs from the previous shell.
+That is, you must manually find the ports searching through the server logs from the previous shell. The output will be a directory that depends on the parameters in the `client.py` file. The directory will have this format: `spices-v-3-3-0-check-10-of-12`, where `3-3-0` represents version `3.3.0`, and the "check 10 of 12" parameter describes the process of sorting `12` DALLEE images for prompt matching, thenn comparing the top `10` to an proportion of the label area.
+
+## Text generation
+
+Run the following in a shell with access to a `spices-v-3-3-0-...etc` folder from the last step.
+
+```
+git@github.com:hssrobotics23/SynthText.git
+cd SynthText
+pyenv install 3.6.7
+pyenv local 3.6.7
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+python3 -m pip install opencv-python
+python gen.py "/path/to/spices-v-..."
+```
+
+Move the "results" directory to a folder formatted like `results-v-3-3-0-check-10-of-25`. When you have many such folders, run:
+
+```
+python merge_results.py
+```
+
+Note, the `PROMPTS` object must be updated in `merge_prompts.py` with the prompts for each version of `client.py`.
+
+After running `merge_results.py`, you can sync up with the remote `S3` bucket
+
+```
+aws s3 sync merged s3://dgmd-s17-assets/train/generated-text-images/
+```
+
+Note, you must have access with `aws configure`
