@@ -120,7 +120,7 @@ Using [conda](https://docs.anaconda.com/anaconda/install/windows/) is easier!
 ```
 conda create -n visualize python=3.9
 conda activate visualize
-pip install jupyterlab opencv-python
+pip install jupyterlab opencv-python numpy
 conda install nb_conda_kernels
 python3 -m jupyterlab
 ```
@@ -130,7 +130,7 @@ Here are the `pyenv` instructions:
 ```
 pyenv install 3.9.17
 pyenv local 3.9.17
-python3 -m pip install jupyterlab
+python3 -m pip install jupyterlab numpy
 python3 -m pip install opencv-python
 python3 -m jupyterlab
 ```
