@@ -2,7 +2,7 @@
 
 This repository describes the steps to fully synthesize a dataset of  labeled spice images, with precise ground truth bounding boxes. First, synthetic images are generated using a fork of Dall-E Flow, then text is added using a fork of SynthText. The included Jupyter notebook runs tests of text recognition on the images. 
 
-A pre-generated dataset is publicly hosted on AWS, [for a demo in the jupyter notebook](#visualize). This notebook uses EasyOCR on the synthetic images, measuring text prediction accuracy and the precision of the bounding boxes. The Jupyter notebook concludes with a demo of recipe geneation by passing the recognized spices to OpenAI. To reproduce this work, you must have your wn OpenAI API key.
+A pre-generated dataset is publicly hosted on AWS, [for a demo in the jupyter notebook](#visualize). This notebook uses EasyOCR on the synthetic images, measuring text prediction accuracy and the precision of the bounding boxes. The Jupyter notebook concludes with a demo of recipe geneation by passing the recognized spices to OpenAI. To reproduce this work, you must have your own OpenAI API key.
 
 ## Dall-E Server
 
