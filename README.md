@@ -63,6 +63,7 @@ pip install grpcio==1.48.2
 pip install jina==3.11.2
 pip install dalle_mini
 pip install timm
+pip install jax==0.3.25
 python3 flow_parser.py --enable-stable-diffusion --enable-clipseg
 python3 -m jina flow --uses flow.tmp.yml
 
