@@ -58,6 +58,7 @@ export JINA_AUTH_TOKEN="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"
 mkdir ./stable-diffusion/models/ldm/stable-diffusion-v1
 wget -O ./stable-diffusion/models/ldm/stable-diffusion-v1/model.ckpt https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
 cd dalle-flow
+pip install orbax-checkpoint orbax-export
 pip install grpcio>=1.48.2
 pip install jina==3.11.2
 pip install dalle_mini
