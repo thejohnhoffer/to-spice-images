@@ -92,7 +92,7 @@ That is, you must manually find the ports searching through the server logs from
 Run the following in a shell with access to a `spices-v-3-3-0-...etc` folder from the last step.
 
 ```
-git@github.com:hssrobotics23/SynthText.git
+git clone https://github.com/hssrobotics23/SynthText.git
 cd SynthText
 pyenv install 3.6.7
 pyenv local 3.6.7
