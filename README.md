@@ -21,6 +21,7 @@ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 exec $SHELL
 pyenv install 3.10.12
 pyenv global 3.10.12
+pip install -U pip
 mkdir dalle && cd dalle
 git clone https://github.com/thejohnhoffer/dalle-flow.git
 git clone https://github.com/jina-ai/SwinIR.git
